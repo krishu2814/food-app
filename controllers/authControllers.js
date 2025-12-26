@@ -24,8 +24,8 @@ const registerController = async (req, res) => {
     }
 
     // 3. Hash the password
-    var salt = bcrypt.genSaltSync(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    var saltPassword = bcrypt.genSaltSync(10);
+    const hashedPassword = await bcrypt.hash(password, saltPassword);
 
     // 4. Create a new user (Saving the HASHED password)
     const user = await userModel.create({
@@ -74,7 +74,7 @@ const loginController = async (req, res) => {
       });
     }
     // Check user
-    const user = await userModel.findOne({ email: email });
+    const user = await userModel.findOne({ email: email }).select("+password");
     if (!user) {
       return res.status(404).send({
         success: false,

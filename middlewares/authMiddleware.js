@@ -3,7 +3,7 @@ import JWT from "jsonwebtoken";
 export default async (req, res, next) => {
   try {
     // Check if authorization header exists
-    const authHeader = req.headers["authorization"];
+    const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).send({
         success: false,
